@@ -1,4 +1,4 @@
-package com.heroes.api.heroesapi.model;
+package com.flights.api.flightsapi.model;
 
 import java.util.logging.Logger;
 
@@ -8,8 +8,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * 
  * @author SWEN Faculty
  */
-public class Hero {
-    private static final Logger LOG = Logger.getLogger(Hero.class.getName());
+public class Flight {
+    private static final Logger LOG = Logger.getLogger(Flight.class.getName());
 
     // Package private for tests
     static final String STRING_FORMAT = "Hero [id=%d, name=%s]";
@@ -27,7 +27,9 @@ public class Hero {
      * is not provided in the JSON object, the Java field gets the default Java
      * value, i.e. 0 for int
      */
-    public Hero(@JsonProperty("id") int id, @JsonProperty("name") String name) {
+    public Flight(@JsonProperty("code") String code, @JsonProperty("passport") String passport,  @JsonProperty("name") String name, @JsonProperty("surname") String surname,  
+    			  @JsonProperty("departure") String departure,  @JsonProperty("arrival") String arrival,  @JsonProperty("seat") String seat,  @JsonProperty("date") String date,
+    			  @JsonProperty("departureTime") String departureTime,  @JsonProperty("boarding") String boarding) {
         this.id = id;
         this.name = name;
     }

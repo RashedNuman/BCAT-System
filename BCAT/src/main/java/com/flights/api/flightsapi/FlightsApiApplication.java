@@ -1,13 +1,13 @@
-package com.heroes.api.heroesapi;
+package com.flights.api.flightsapi;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class HeroesApiApplication {
+public class FlightsApiApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(HeroesApiApplication.class, args);
+		SpringApplication.run(FlightsApiApplication.class, args);
 	}
 
 }

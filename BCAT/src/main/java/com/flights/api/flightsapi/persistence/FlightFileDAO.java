@@ -1,18 +1,18 @@
-package com.heroes.api.heroesapi.persistence;
+package com.flights.api.flightsapi.persistence;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Random;
 import java.util.TreeMap;
 import java.util.logging.Logger;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.flights.api.flightsapi.model.Flight;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-
-import com.heroes.api.heroesapi.model.Hero;
 
 /**
  * Implements the functionality for JSON file-based peristance for Heroes
@@ -23,9 +23,9 @@ import com.heroes.api.heroesapi.model.Hero;
  * @author SWEN Faculty
  */
 @Component
-public class HeroFileDAO implements HeroDAO {
-    private static final Logger LOG = Logger.getLogger(HeroFileDAO.class.getName());
-    Map<Integer,Hero> heroes;   // Provides a local cache of the hero objects
+public class FlightFileDAO implements FlightDAO {
+    private static final Logger LOG = Logger.getLogger(FlightFileDAO.class.getName());
+    Map<String,Flight> flights;   // Provides a local cache of the hero objects
                                 // so that we don't need to read from the file
                                 // each time
     private ObjectMapper objectMapper;  // Provides conversion between Hero
@@ -42,21 +42,29 @@ public class HeroFileDAO implements HeroDAO {
      * 
      * @throws IOException when file cannot be accessed or read from
      */
-    public HeroFileDAO(@Value("${heroes.file}") String filename,ObjectMapper objectMapper) throws IOException {
+    public FlightFileDAO(@Value("${flights.file}") String filename,ObjectMapper objectMapper) throws IOException {
         this.filename = filename;
         this.objectMapper = objectMapper;
         load();  // load the heroes from the file
     }
 
     /**
-     * Generates the next id for a new {@linkplain Hero hero}
-     * 
-     * @return The next id
+     * Generates random unique booking code for a flight booking
+     * @return booking code as String
      */
-    private synchronized static int nextId() {
-        int id = nextId;
-        ++nextId;
-        return id;
+    private synchronized static String newCode() {
+    	
+    	String AlphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"; // to generate unique booking code
+    	
+    	StringBuilder sb = new StringBuilder();
+        Random random = new Random();
+        for (int i = 0; i < 6; i++) {
+            sb.append(AlphaNumericString.charAt(random.nextInt(AlphaNumericString.length())));
+        }
+        
+        String code = sb.toString();
+
+        return code;
     }
 
     /**
@@ -64,8 +72,8 @@ public class HeroFileDAO implements HeroDAO {
      * 
      * @return  The array of {@link Hero heroes}, may be empty
      */
-    private Hero[] getHeroesArray() {
-        return getHeroesArray(null);
+    private Flight[] getFlightsArray() {
+        return getFlightsArray(null);
     }
 
     /**
@@ -77,18 +85,18 @@ public class HeroFileDAO implements HeroDAO {
      * 
      * @return  The array of {@link Hero heroes}, may be empty
      */
-    private Hero[] getHeroesArray(String containsText) { // if containsText == null, no filter
-        ArrayList<Hero> heroArrayList = new ArrayList<>();
+    private Flight[] getFlightsArray(String passport) { // if containsText == null, no filter
+        ArrayList<Flight> flightArrayList = new ArrayList<>();
 
-        for (Hero hero : heroes.values()) {
-            if (containsText == null || hero.getName().contains(containsText)) {
-                heroArrayList.add(hero);
+        for (Flight flight : flights.values()) {
+            if (passport == null || flight.getName().contains(passport)) {
+                flightArrayList.add(flight);
             }
         }
 
-        Hero[] heroArray = new Hero[heroArrayList.size()];
-        heroArrayList.toArray(heroArray);
-        return heroArray;
+        Flight[] flightArray = new Flight[flightArrayList.size()];
+        flightArrayList.toArray(flightArray);
+        return flightArray;
     }
 
     /**
@@ -99,12 +107,12 @@ public class HeroFileDAO implements HeroDAO {
      * @throws IOException when file cannot be accessed or written to
      */
     private boolean save() throws IOException {
-        Hero[] heroArray = getHeroesArray();
+        Flight[] flightArray = getFlightsArray();
 
         // Serializes the Java Objects to JSON objects into the file
         // writeValue will thrown an IOException if there is an issue
         // with the file or reading from the file
-        objectMapper.writeValue(new File(filename),heroArray);
+        objectMapper.writeValue(new File(filename),flightArray);
         return true;
     }
 
@@ -118,22 +126,22 @@ public class HeroFileDAO implements HeroDAO {
      * @throws IOException when file cannot be accessed or read from
      */
     private boolean load() throws IOException {
-        heroes = new TreeMap<>();
+    	flights= new TreeMap<>();
         nextId = 0;
 
         // Deserializes the JSON objects from the file into an array of heroes
         // readValue will throw an IOException if there's an issue with the file
         // or reading from the file
-        Hero[] heroArray = objectMapper.readValue(new File(filename),Hero[].class);
+        Flight[] flightArray = objectMapper.readValue(new File(filename),Flight[].class);
 
         // Add each hero to the tree map and keep track of the greatest id
-        for (Hero hero : heroArray) {
-            heroes.put(hero.getId(),hero);
-            if (hero.getId() > nextId)
-                nextId = hero.getId();
+        for (Flight flight : flightArray) {
+            flights.put(flight.getId(),flight);
+           // if (flight.getId() > nextId)
+               // nextId = flight.getId(); NO NEED FOR THIS
         }
         // Make the next id one greater than the maximum from the file
-        ++nextId;
+        //++nextId;
         return true;
     }
 
@@ -141,30 +149,30 @@ public class HeroFileDAO implements HeroDAO {
     ** {@inheritDoc}
      */
     @Override
-    public Hero[] getHeroes() {
-        synchronized(heroes) {
-            return getHeroesArray();
+    public Flight[] getBookings() {
+        synchronized(flights) {
+            return getFlightsArray();
         }
     }
 
     /**
     ** {@inheritDoc}
-     */
+     
     @Override
     public Hero[] findHeroes(String containsText) {
         synchronized(heroes) {
             return getHeroesArray(containsText);
         }
-    }
+    }*/
 
     /**
     ** {@inheritDoc}
      */
     @Override
-    public Hero getHero(int id) {
-        synchronized(heroes) {
-            if (heroes.containsKey(id))
-                return heroes.get(id);
+    public Flight getBooking(String code) {
+        synchronized(flights) {
+            if (flights.containsKey(code))
+                return flights.get(code);
             else
                 return null;
         }
@@ -174,44 +182,38 @@ public class HeroFileDAO implements HeroDAO {
     ** {@inheritDoc}
      */
     @Override
-    public Hero createHero(Hero hero) throws IOException {
-        synchronized(heroes) {
-            // We create a new hero object because the id field is immutable
-            // and we need to assign the next unique id
-            Hero newHero = new Hero(nextId(),hero.getName());
-            heroes.put(newHero.getId(),newHero);
+    public Boolean createBooking(Flight flight) throws IOException {
+        synchronized(flights) {
+        	
+            Flight newFlight = new Flight(newCode(), flight.getPassport(), flight.getName(), flight.getSurname(), 
+            							  flight.getDeparture(), flight.getArrival(), flight.getSeat(),
+            							  flight.getDate(), flight.DepartureTime(), flight.getBoarding());
+            
+            flights.put(newFlight.getCode(),newFlight);
             save(); // may throw an IOException
-            return newHero;
+            return true;
         }
     }
 
-    /**
-    ** {@inheritDoc}
-     */
-    @Override
-    public Hero updateHero(Hero hero) throws IOException {
-        synchronized(heroes) {
-            if (heroes.containsKey(hero.getId()) == false)
-                return null;  // hero does not exist
 
-            heroes.put(hero.getId(),hero);
-            save(); // may throw an IOException
-            return hero;
-        }
-    }
 
-    /**
-    ** {@inheritDoc}
-     */
-    @Override
-    public boolean deleteHero(int id) throws IOException {
-        synchronized(heroes) {
-            if (heroes.containsKey(id)) {
-                heroes.remove(id);
-                return save();
-            }
-            else
-                return false;
-        }
-    }
+	@Override
+	public String verifyBooking(String passport) throws IOException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

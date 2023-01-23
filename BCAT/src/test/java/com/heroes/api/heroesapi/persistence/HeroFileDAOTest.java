@@ -14,7 +14,8 @@ import java.io.File;
 import java.io.IOException;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.heroes.api.heroesapi.model.Hero;
+import com.flights.api.flightsapi.model.Hero;
+import com.flights.api.flightsapi.persistence.HeroFileDAO;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;

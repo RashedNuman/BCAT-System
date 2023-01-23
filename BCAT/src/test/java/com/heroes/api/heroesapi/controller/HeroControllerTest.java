@@ -7,14 +7,15 @@ import static org.mockito.Mockito.when;
 
 import java.io.IOException;
 
-import com.heroes.api.heroesapi.persistence.HeroDAO;
-import com.heroes.api.heroesapi.model.Hero;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+
+import com.flights.api.flightsapi.controller.HeroController;
+import com.flights.api.flightsapi.model.Hero;
+import com.flights.api.flightsapi.persistence.HeroDAO;
 
 /**
  * Test the Hero Controller class
