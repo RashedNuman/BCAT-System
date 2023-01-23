@@ -14,9 +14,16 @@ public class Flight {
     // Package private for tests
     static final String STRING_FORMAT = "Hero [id=%d, name=%s]";
 
-    @JsonProperty("id") private int id;
-    @JsonProperty("name") private String name;
-
+    @JsonProperty("code") String code;
+    @JsonProperty("passport") String passport;
+    @JsonProperty("name") String name;
+    @JsonProperty("surname") String surname;
+    @JsonProperty("departure") String departure;
+    @JsonProperty("arrival") String arrival;
+    @JsonProperty("seat") String seat;
+    @JsonProperty("date") String date;
+    @JsonProperty("departureTime") String departureTime;
+    @JsonProperty("boarding") String boarding;
     /**
      * Create a hero with the given id and name
      * @param id The id of the hero
@@ -30,33 +37,57 @@ public class Flight {
     public Flight(@JsonProperty("code") String code, @JsonProperty("passport") String passport,  @JsonProperty("name") String name, @JsonProperty("surname") String surname,  
     			  @JsonProperty("departure") String departure,  @JsonProperty("arrival") String arrival,  @JsonProperty("seat") String seat,  @JsonProperty("date") String date,
     			  @JsonProperty("departureTime") String departureTime,  @JsonProperty("boarding") String boarding) {
-        this.id = id;
+    	
+        this.code = code;
+        this.passport = passport;
         this.name = name;
+        this.surname = name;
+        this.departure = departure;
+        this.arrival = arrival;
+        this.seat = seat;
+        this.date = date;
+        this.departureTime = departureTime;
+        this.boarding = boarding;
+        
+        
     }
-
-    /**
-     * Retrieves the id of the hero
-     * @return The id of the hero
-     */
-    public int getId() {return id;}
-
-    /**
-     * Sets the name of the hero - necessary for JSON object to Java object deserialization
-     * @param name The name of the hero
-     */
-    public void setName(String name) {this.name = name;}
-
-    /**
-     * Retrieves the name of the hero
-     * @return The name of the hero
-     */
+    
+    public String getCode() {return code;}
+    public void setCode(String code) {this.code = code;}
+    
+    public String getPassport() {return passport;}
+    public void setPassport(String passport) { this.passport = passport;}
+    
     public String getName() {return name;}
+    public void setName(String name) {this.name = name;}
+    
+    public String getSurname() { return surname;}
+    public void setSurname(String surname) {this.surname = surname;}
+    
+    public String getDeparture() {return departure;}
+    public void setDeparture(String departure) {this.departure = departure;}
+    
+    public String getArrival() {return arrival;}
+    public void setArrival(String arrival) {this.arrival = arrival;}
+    
+    public String getSeat() {return seat;}
+    public void setSeat(String seat) {this.seat = seat;}
+    
+    public String getDate() {return date;}
+    public void setDate(String date) {this.date = date;}
+    
+    public String getDepartureTime() {return departureTime;}
+    public void setDepartureTime(String departureTime) {this.departureTime = departureTime;}
+    
+    public String getBoarding() {return boarding;}
+    public void setBoarding(String boarding) {this.boarding = boarding;}
+ 
 
     /**
      * {@inheritDoc}
      */
     @Override
     public String toString() {
-        return String.format(STRING_FORMAT,id,name);
+        return String.format(STRING_FORMAT, code);
     }
 }
