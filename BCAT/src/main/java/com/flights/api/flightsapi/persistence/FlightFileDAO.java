@@ -42,7 +42,7 @@ public class FlightFileDAO implements FlightDAO {
      * 
      * @throws IOException when file cannot be accessed or read from
      */
-    public FlightFileDAO(@Value("${flights.file}") String filename,ObjectMapper objectMapper) throws IOException {
+    public FlightFileDAO(@Value("${bookings.file}") String filename,ObjectMapper objectMapper) throws IOException {
         this.filename = filename;
         this.objectMapper = objectMapper;
         load();  // load the heroes from the file
@@ -116,15 +116,7 @@ public class FlightFileDAO implements FlightDAO {
         return true;
     }
 
-    /**
-     * Loads {@linkplain Hero heroes} from the JSON file into the map
-     * <br>
-     * Also sets next id to one more than the greatest id found in the file
-     * 
-     * @return true if the file was read successfully
-     * 
-     * @throws IOException when file cannot be accessed or read from
-     */
+
     private boolean load() throws IOException {
     	flights= new TreeMap<>();
         nextId = 0;
@@ -136,7 +128,7 @@ public class FlightFileDAO implements FlightDAO {
 
         // Add each hero to the tree map and keep track of the greatest id
         for (Flight flight : flightArray) {
-            flights.put(flight.getId(),flight);
+            flights.put(flight.getCode(),flight);
            // if (flight.getId() > nextId)
                // nextId = flight.getId(); NO NEED FOR THIS
         }
@@ -155,15 +147,7 @@ public class FlightFileDAO implements FlightDAO {
         }
     }
 
-    /**
-    ** {@inheritDoc}
-     
-    @Override
-    public Hero[] findHeroes(String containsText) {
-        synchronized(heroes) {
-            return getHeroesArray(containsText);
-        }
-    }*/
+    
 
     /**
     ** {@inheritDoc}
@@ -187,7 +171,7 @@ public class FlightFileDAO implements FlightDAO {
         	
             Flight newFlight = new Flight(newCode(), flight.getPassport(), flight.getName(), flight.getSurname(), 
             							  flight.getDeparture(), flight.getArrival(), flight.getSeat(),
-            							  flight.getDate(), flight.DepartureTime(), flight.getBoarding());
+            							  flight.getDate(), flight.getDepartureTime(), flight.getBoarding());
             
             flights.put(newFlight.getCode(),newFlight);
             save(); // may throw an IOException
@@ -199,13 +183,19 @@ public class FlightFileDAO implements FlightDAO {
 
 	@Override
 	public String verifyBooking(String passport) throws IOException {
-		// TODO Auto-generated method stub
-		return null;
+		
+		 ArrayList<Flight> flightArrayList = new ArrayList<>();
+
+		    for (Flight flight : flights.values()) {
+		        if (flight.getPassport() == passport) {
+		            return flight.getCode();
+		        }
+		    }
+		
+		return "NOT FOUND";
 	}
 
 }
-
-
 
 
 

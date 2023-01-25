@@ -15,6 +15,8 @@ public interface FlightDAO {
 	String verifyBooking(String passport) throws IOException;
 	
     Flight getBooking(String code) throws IOException;
+    
+    Flight[] getBookings() throws IOException;
   
     Boolean createBooking(Flight flight) throws IOException;
 
