@@ -29,7 +29,8 @@ public class FlightsController {
     public FlightsController(FlightDAO flightDao) {
         this.flightDao = flightDao;
     }
-
+    
+    //WORKS
     // get a specific booking based on code
     @GetMapping("/{code}")
     public ResponseEntity<Flight> getFlight(@PathVariable String code) {
@@ -84,8 +85,8 @@ public class FlightsController {
 
     }
     
-    @PostMapping("/verify")
-    public ResponseEntity<String> verifyBooking(@RequestBody String passport){
+    @PostMapping("/verify/{passport}")
+    public ResponseEntity<String> verifyBooking(@PathVariable String passport){
     	LOG.info("POST /verify " + passport);
     	
     	try {

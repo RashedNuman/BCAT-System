@@ -41,7 +41,7 @@ public class Flight {
         this.code = code;
         this.passport = passport;
         this.name = name;
-        this.surname = name;
+        this.surname = surname;
         this.departure = departure;
         this.arrival = arrival;
         this.seat = seat;
@@ -85,9 +85,9 @@ public class Flight {
 
     /**
      * {@inheritDoc}
-     */
+     
     @Override
     public String toString() {
-        return String.format(STRING_FORMAT, code);
-    }
+        return String.format(STRING_FORMAT, code);//
+    }*/ //destroys the entire thing fix later
 }
