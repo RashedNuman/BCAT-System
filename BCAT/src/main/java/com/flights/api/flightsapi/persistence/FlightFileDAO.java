@@ -142,6 +142,7 @@ public class FlightFileDAO implements FlightDAO {
 		
 		    for (Flight flight : flights.values()) {
 		        if (flight.getPassport().equals(passport)) {
+		        	System.err.println(flight.getPassport());
 		            return flight.getCode();
 		        }
 		    }

@@ -93,10 +93,10 @@ public class FlightsController {
     		String code = flightDao.verifyBooking(passport);
     		
     		if (!code.equals("NOT FOUND")) {
-    			return new ResponseEntity<>(code, HttpStatus.FOUND);
+    			return new ResponseEntity<String>(code, HttpStatus.FOUND);
     			
     		}else {
-    			return new ResponseEntity<>(code, HttpStatus.EXPECTATION_FAILED);
+    			return new ResponseEntity<String>(code, HttpStatus.EXPECTATION_FAILED);
     		}
     	}catch(IOException e){
             LOG.log(Level.SEVERE,e.getLocalizedMessage());
