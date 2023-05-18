@@ -1,0 +1,4 @@
+1 - add the URL pattern to urls.py
+2 - add a response function in views.py
+3 - add the html to templates, add static declaration at start of html
+4 - add static files (images, css and JS) to static file

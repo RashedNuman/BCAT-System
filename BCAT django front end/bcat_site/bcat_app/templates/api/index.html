@@ -1,0 +1,72 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>BCAT TEST</title>
+    <style>
+      html, body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      label {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 48px;
+        font-weight: bold;
+        color: white;
+        background-color: rgba(0, 0, 0, 0.5);
+        padding: 20px;
+        border-radius: 10px;
+      }
+      button {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        padding: 10px;
+      }
+    </style>
+    <script>
+      function printColor(num) {
+        var label = document.getElementById("color-label");
+        switch(num) {
+          case 1:
+            label.textContent = "Red";
+            label.style.color = "red";
+            break;
+          case 2:
+            label.textContent = "Blue";
+            label.style.color = "blue";
+            break;
+          case 3:
+            label.textContent = "Green";
+            label.style.color = "green";
+            break;
+          default:
+            label.textContent = "Invalid input";
+            label.style.color = "black";
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <img src= '{% static "astro3.jpg"%}' alt="Hello world">
+    <label id="color-label"></label>
+    <button onclick="printColor(1)">Print red</button>
+    <button onclick="printColor(2)">Print blue</button>
+    <button onclick="printColor(3)">Print green</button>
+  </body>
+</html>

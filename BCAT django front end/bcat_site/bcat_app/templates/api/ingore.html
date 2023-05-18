@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Django-JavaScript Communication</title>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script>
+		function communicate() {
+			var name = document.getElementById('name').value;
+			$.ajax({
+				url: '/api/',
+				method: 'POST',
+				data: JSON.stringify({'name': name}),
+				contentType: 'application/json',
+				success: function(response) {
+					alert(response.message);
+				}
+			});
+		}
+	</script>
+</head>
+<body>
+	<input type="text" id="name" placeholder="Enter your name">
+	<button onclick="communicate()">Say Hello</button>
+</body>
+</html>

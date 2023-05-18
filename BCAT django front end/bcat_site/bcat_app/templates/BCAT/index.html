@@ -1,0 +1,166 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>BCAT TEST</title>
+    <style>
+      html, body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      label {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 48px;
+        font-weight: bold;
+        color: white;
+        background-color: rgba(0, 0, 0, 0.5);
+        padding: 20px;
+        border-radius: 10px;
+      }
+      button {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        padding: 10px;
+      }
+      .tick {
+        stroke-dasharray: 100;
+        stroke-dashoffset: 100;
+        animation: dash 0.5s linear forwards;
+        fill: transparent;
+        stroke: green;
+        stroke-width: 7;
+      }
+      .cross {
+        stroke-dasharray: 100;
+        stroke-dashoffset: 100;
+        animation: dash 0.5s linear forwards;
+        fill: transparent;
+        stroke: red;
+        stroke-width: 7;
+      }
+      @keyframes dash {
+        to {
+          stroke-dashoffset: 0;
+        }
+      }
+    </style>
+    <script>
+      function result1(num) {
+        var label = document.getElementById("label1");
+	
+	switch(num) {
+	   case 1:
+             label.innerHTML = '<svg width="100" height="100"><path class="tick" d="M5 30 L20 45 L45 5"></path></svg>';
+	     break;
+
+	   case 2:
+             label.innerHTML = '<svg width="100" height="100"><path class="cross" d="M5 5 L45 45 M5 45 L45 5"></path></svg>';
+	     break;
+	}
+      }
+     </script>
+
+    <script>
+      function result2(num) {
+        var label = document.getElementById("label2");
+	
+	switch(num) {
+	   case 1:
+             label.innerHTML = '<svg width="100" height="100"><path class="tick" d="M5 30 L20 45 L45 5"></path></svg>';
+	     break;
+
+	   case 2:
+             label.innerHTML = '<svg width="100" height="100"><path class="cross" d="M5 5 L45 45 M5 45 L45 5"></path></svg>';
+	     break;
+	}
+      }
+     </script>
+
+    <script>
+      function result3(num) {
+        var label = document.getElementById("label3");
+	
+	switch(num) {
+	   case 1:
+             label.innerHTML = '<svg width="100" height="100"><path class="tick" d="M5 30 L20 45 L45 5"></path></svg>';
+	     break;
+
+	   case 2:
+             label.innerHTML = '<svg width="100" height="100"><path class="cross" d="M5 5 L45 45 M5 45 L45 5"></path></svg>';
+	     break;
+	}
+      }
+     </script>
+
+     <script>
+      function result4(num) {
+        var label = document.getElementById("label4");
+	
+	switch(num) {
+	   case 1:
+             label.innerHTML = '<svg width="100" height="100"><path class="tick" d="M5 30 L20 45 L45 5"></path></svg>';
+	     break;
+
+	   case 2:
+             label.innerHTML = '<svg width="100" height="100"><path class="cross" d="M5 5 L45 45 M5 45 L45 5"></path></svg>';
+	     break;
+	}
+      }
+     </script>
+
+    <script>
+      function printResult(num) {
+
+        var labelx = document.getElementById("label1");
+	var labely = document.getElementById("label2");
+	var labelz = document.getElementById("label3");
+        switch(num) {
+          case 1:
+            labelz.innerHTML = '<svg width="100" height="100"><path class="tick" d="M5 30 L20 45 L45 5"></path></svg>';
+	    labey.innerHTML = '<svg width="100" height="100"><path class="tick" d="M5 30 L20 45 L45 5"></path></svg>';
+	    labex.innerHTML = '<svg width="100" height="100"><path class="tick" d="M5 30 L20 45 L45 5"></path></svg>';
+            break;
+
+          case 2:
+            labelx.innerHTML = '<svg width="100" height="100"><path class="x" d="M5 5 L45 45 M5 45 L45 5"></path></svg>';
+            break;
+          default:
+            label.textContent = "Invalid input";
+            label.style.color = "black";
+        }
+      }
+    </script>
+
+  </head>
+  <body>
+    <img src="{% static 'backgr.jpg' %}" alt="This is Space Test">
+
+    <div id="label1" style="position: absolute; top: calc(50% - 1.5em); left: 50%; transform: translate(-50%, -50%);"></div>
+    <div id="label2" style="position: absolute; top: calc(50% + 100px - 1.5em); left: 50%; transform: translate(-50%, -50%);"></div>
+    <div id="label3" style="position: absolute; top: calc(50% + 200px - 1.5em); left: 50%; transform: translate(-50%, -50%);"></div>
+    <div id="label4" style="position: absolute; top: calc(50% + 300px - 1.5em); left: 50%; transform: translate(-50%, -50%);"></div>
+
+  <div id="leftLabel1" style="position: absolute; top: calc(50% - 1.5em - 20px); left: calc(50% - 200px); transform: translate(-50%, -50%); font-weight: bold; font-size: 20px; text-align: center; text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 0px 0px 5px #000; color: #fff;">Passport Check: </div>
+  <div id="leftLabel2" style="position: absolute; top: calc(50% + 100px - 1.5em - 20px); left: calc(50% - 200px); transform: translate(-50%, -50%); font-weight: bold; font-size: 20px; text-align: center; text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 0px 0px 5px #000; color: #fff;">Pre-Flight Screening: </div>
+  <div id="leftLabel3" style="position: absolute; top: calc(50% + 200px - 1.5em - 20px); left: calc(50% - 200px); transform: translate(-50%, -50%); font-weight: bold; font-size: 20px; text-align: center; text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 0px 0px 5px #000; color: #fff;">Biometric Check: </div>
+  <div id="leftLabel4" style="position: absolute; top: calc(50% + 300px - 1.5em - 20px); left: calc(50% - 200px); transform: translate(-50%, -50%); font-weight: bold; font-size: 20px; text-align: center; text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 0px 0px 5px #000; color: #fff;">Background Check: </div>
+
+
+  </body>
+</html>

@@ -1,0 +1,3 @@
+>place JPG images of people here
+>name of file should be passport number
+>files here should be hosted by a python http server
